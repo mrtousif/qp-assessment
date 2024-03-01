@@ -1,0 +1,42 @@
+{
+  "name": "grocery-booking",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/grocery-booking/src",
+  "projectType": "application",
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "grocery-booking:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "grocery-booking:build:development"
+        },
+        "production": {
+          "buildTarget": "grocery-booking:build:production"
+        }
+      }
+    },
+    "seeder": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/grocery-booking",
+        "commands": ["npx mikro-orm seeder:run"],
+        "parallel": false
+      }
+    },
+    "introspect": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/grocery-booking",
+        "commands": [
+          "npx mikro-orm generate-entities --config ./mikro-orm.config.ts --save --path=./my-entities"
+        ],
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}
