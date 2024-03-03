@@ -26,7 +26,7 @@ Advanced Challenge:
   Database:
 - Use any relational database of your choice.
   How to submit the code?
-  Create a new GitHub repository with name : qp-assessment
+  Create a new GitHub repository with name : qp-assessment  
   Once you are ready with the code, you can come back on this URL to submit the GitHub Repo Link.
 
 Table: products

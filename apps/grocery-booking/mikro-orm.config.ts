@@ -1,13 +1,14 @@
 import { defineConfig } from '@mikro-orm/postgresql';
 import { EntityGenerator } from '@mikro-orm/entity-generator';
-// import { SeedManager } from '@mikro-orm/seeder';
+import { SeedManager } from '@mikro-orm/seeder';
+import { env } from './src/app/config/index';
 
 export default defineConfig({
-  dbName: 'grocery_db',
+  dbName: env.POSTGRES_DB,
   host: 'localhost',
-  port: 5433,
-  user: 'postgres',
-  password: 'postgres_pass',
+  port: env.POSTGRES_PORT,
+  user: env.POSTGRES_USER,
+  password: env.POSTGRES_PASSWORD,
   debug: true,
   entities: ['../../dist/apps/**/*.entity.js'], // path to our JS entities (dist), relative to `baseDir`
   entitiesTs: ['./src/app/**/*.entity.ts'], // path to our TS entities (src), relative to `baseDir`
@@ -19,5 +20,5 @@ export default defineConfig({
     emit: 'ts', // seeder generation mode
     fileName: (className: string) => className, // seeder file naming convention
   },
-  extensions: [EntityGenerator],
+  extensions: [EntityGenerator, SeedManager],
 });

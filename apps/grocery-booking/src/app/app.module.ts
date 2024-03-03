@@ -4,7 +4,7 @@ import {
   NestModule,
   ValidationPipe,
 } from '@nestjs/common';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_GUARD, APP_PIPE } from '@nestjs/core';
 import { MikroORM } from '@mikro-orm/core';
 import { MikroOrmModule, MikroOrmMiddleware } from '@mikro-orm/nestjs';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
@@ -16,6 +16,7 @@ import { ProductsModule } from './products/products.module';
 import { OrdersModule } from './orders/orders.module';
 import { CartsModule } from './carts/carts.module';
 import { UsersModule } from './users/users.module';
+import { AuthGuard, RolesGuard } from './common';
 
 @Module({
   imports: [
@@ -24,12 +25,13 @@ import { UsersModule } from './users/users.module';
       inject: [ENVALID],
       useFactory: (env: Config) => {
         return {
-          dbName: 'grocery-db',
+          dbName: env.POSTGRES_DB,
           driver: PostgreSqlDriver,
           autoLoadEntities: true,
-          ensureIndexes: true,
           debug: env.isDev,
-          clientUrl: env.DB_URI,
+          user: env.POSTGRES_USER,
+          password: env.POSTGRES_PASSWORD,
+          port: env.POSTGRES_PORT,
         };
       },
     }),
@@ -43,6 +45,14 @@ import { UsersModule } from './users/users.module';
     {
       provide: APP_PIPE,
       useClass: ValidationPipe,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: RolesGuard,
     },
     AppService,
   ],

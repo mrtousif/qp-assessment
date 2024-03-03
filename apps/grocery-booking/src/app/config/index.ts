@@ -3,12 +3,15 @@ import { Inject } from '@nestjs/common';
 import { makeValidators, Static, ENVALID } from 'nestjs-envalid';
 
 const ENVS = {
-  DB_URI: url(),
+  POSTGRES_USER: str(),
+  POSTGRES_PASSWORD: str(),
+  POSTGRES_DB: str(),
+  POSTGRES_PORT: port({ default: 5432 }),
   NODE_ENV: str({
     choices: ['development', 'test', 'production', 'staging', 'qa'],
     devDefault: 'development',
   }),
-  PORT: port({ devDefault: 6000 }),
+  PORT: port({ default: 6000 }),
 };
 
 export const env = cleanEnv(process.env, ENVS);

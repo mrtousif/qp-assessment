@@ -1,5 +1,6 @@
 import {
   Entity,
+  EntityRepositoryType,
   ManyToOne,
   OneToOne,
   Opt,
@@ -8,9 +9,12 @@ import {
 } from '@mikro-orm/core';
 import { Cart } from '../../carts/entities/cart.entity';
 import { User } from '../../users/entities/user.entity';
+import { OrderRepository } from '../order.repository';
 
-@Entity({ tableName: 'orders' })
+@Entity({ tableName: 'orders', repository: () => OrderRepository })
 export class Order {
+  [EntityRepositoryType]?: OrderRepository;
+
   @PrimaryKey({
     type: 'string',
     columnType: 'uuid',

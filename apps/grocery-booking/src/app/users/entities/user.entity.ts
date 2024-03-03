@@ -1,9 +1,21 @@
-import { Entity, Opt, PrimaryKey, Property } from '@mikro-orm/core';
+import {
+  Entity,
+  EntityRepositoryType,
+  Enum,
+  Opt,
+  PrimaryKey,
+  Property,
+} from '@mikro-orm/core';
+import { UserRepository } from '../user.repository';
+import { Role } from '../../common';
 
 @Entity({
   tableName: 'users',
+  repository: () => UserRepository,
 })
 export class User {
+  [EntityRepositoryType]?: UserRepository;
+
   @PrimaryKey({
     type: 'string',
     columnType: 'uuid',
@@ -14,8 +26,8 @@ export class User {
   @Property()
   name!: string;
 
-  @Property()
-  role!: string;
+  @Enum({ items: () => Role })
+  role: Role & Opt = Role.User;
 
   @Property({ type: 'Date', length: 6, defaultRaw: `now()` })
   createdAt!: Date & Opt;
