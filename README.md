@@ -50,7 +50,7 @@ postgresql://postgres:postgres_pass@localhost:5433/grocery_db?statusColor=&env=l
 
 ## API Test
 
-**Pick up admin user from users table and pass it to authorization header. User registration is not implemented as it is not required**
+**Pick up an admin user id from users table and pass it to authorization header. User registration is not implemented as it is not required**
 
 As a admin:
 
@@ -182,6 +182,8 @@ Status code 200
 ```
 
 As a user
+
+**Pick up an user id from users table and pass it to authorization header.**
 
 1. View the list of available grocery items. (When regular user id as authorization header is passed, server will return the grocery items where stockQty > 0)
 
