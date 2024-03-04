@@ -28,31 +28,3 @@ Advanced Challenge:
   How to submit the code?
   Create a new GitHub repository with name : qp-assessment  
   Once you are ready with the code, you can come back on this URL to submit the GitHub Repo Link.
-
-Table: products
-
-- id
-- name
-- price
-- stock_qty
-
-Table: Cart
-
-- id
-- user_id
-- product_id
-- qty
-
-Table: Order
-
-- id
-- user_id
-- cart_id
-- transaction_id
-- price
-
-Table: user
-
-- id
-- name
-- role
