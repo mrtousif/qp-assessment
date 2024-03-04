@@ -121,6 +121,8 @@ Response
 
 3. Remove grocery items from the system.
 
+It soft deletes the item because items cannot removed from db if it is already purchased.
+
 Request
 
 ```sh
