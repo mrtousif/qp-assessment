@@ -4,6 +4,26 @@
   "sourceRoot": "apps/grocery-booking/src",
   "projectType": "application",
   "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/grocery-booking",
+        "main": "apps/grocery-booking/src/main.ts",
+        "tsConfig": "apps/grocery-booking/tsconfig.app.json",
+        "assets": ["apps/grocery-booking/src/assets"],
+        "webpackConfig": "apps/grocery-booking/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "generatePackageJson": true
+        }
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
@@ -35,6 +55,24 @@
           "npx mikro-orm generate-entities --config ./mikro-orm.config.ts --save --path=./my-entities"
         ],
         "parallel": false
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
+      "options": {
+        "engine": "docker",
+        "metadata": {
+          "images": ["grocery-booking"],
+          "load": true,
+          "tags": [
+            "type=schedule",
+            "type=ref,event=branch",
+            "type=ref,event=tag",
+            "type=ref,event=pr",
+            "type=sha,prefix=sha-"
+          ]
+        }
       }
     }
   },

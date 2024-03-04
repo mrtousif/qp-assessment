@@ -5,7 +5,7 @@ import { env } from './src/app/config/index';
 
 export default defineConfig({
   dbName: env.POSTGRES_DB,
-  host: 'localhost',
+  host: env.POSTGRES_HOST,
   port: env.POSTGRES_PORT,
   user: env.POSTGRES_USER,
   password: env.POSTGRES_PASSWORD,

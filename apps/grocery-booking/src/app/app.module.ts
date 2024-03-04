@@ -29,6 +29,7 @@ import { AuthGuard, RolesGuard } from './common';
           driver: PostgreSqlDriver,
           autoLoadEntities: true,
           debug: env.isDev,
+          host: env.POSTGRES_HOST,
           user: env.POSTGRES_USER,
           password: env.POSTGRES_PASSWORD,
           port: env.POSTGRES_PORT,

@@ -6,6 +6,7 @@ const ENVS = {
   POSTGRES_USER: str(),
   POSTGRES_PASSWORD: str(),
   POSTGRES_DB: str(),
+  POSTGRES_HOST: str({ devDefault: 'localhost' }),
   POSTGRES_PORT: port({ default: 5432 }),
   NODE_ENV: str({
     choices: ['development', 'test', 'production', 'staging', 'qa'],
