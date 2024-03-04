@@ -148,6 +148,14 @@ ALTER TABLE ONLY public.schema_migrations
 
 
 --
+-- Name: carts_items unique_cart_items; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.carts_items
+    ADD CONSTRAINT unique_cart_items UNIQUE (product_id, cart_id);
+
+
+--
 -- Name: orders unique_user_cart; Type: CONSTRAINT; Schema: public; Owner: -
 --
 

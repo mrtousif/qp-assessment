@@ -62,9 +62,15 @@ export class CartsService {
       });
     }
 
-    this.em.persistAndFlush(cartItem);
+    this.em.persist(cartItem);
+    await this.em.flush();
     cartItem.quantity = quantity;
-    return cartItem;
+
+    return {
+      cartId: cartItem.cart.id,
+      productId: cartItem.product.id,
+      quantity: cartItem.quantity,
+    };
   }
 
   findAll() {

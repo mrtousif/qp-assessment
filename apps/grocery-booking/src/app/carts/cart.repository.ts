@@ -13,7 +13,7 @@ export class CartRepository extends EntityRepository<Cart> {
 
     if (!existingCart) {
       const cart = this.create({ user });
-      this.em.persistAndFlush(cart);
+      this.em.persist(cart);
       return cart;
     }
 

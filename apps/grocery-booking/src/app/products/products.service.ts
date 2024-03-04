@@ -48,7 +48,13 @@ export class ProductsService {
     });
   }
 
-  update(id: string, updateProductDto: UpdateProductDto) {
+  async update(id: string, updateProductDto: UpdateProductDto) {
+    const product = await this.findOne(id);
+
+    if (!product) {
+      throw new NotFoundException(`Product ${id} not found`);
+    }
+
     return this.productRepository.nativeUpdate({ id }, updateProductDto);
   }
 
